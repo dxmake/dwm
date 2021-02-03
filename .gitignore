@@ -1,0 +1,8 @@
+config.def.h
+pkg/
+src/
+.SRCINFO
+*.diff
+!dwm-dwmblocks-*.diff
+*.pkg.tar.zst
+*.tar.gz
