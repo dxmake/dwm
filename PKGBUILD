@@ -11,7 +11,8 @@ source=(
     http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
     https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff
     https://raw.githubusercontent.com/ashish-yadav11/dwmblocks/master/patches/dwm-dwmblocks-6.2.diff
-    https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff
+#    https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff
+    https://dwm.suckless.org/patches/pertag/dwm-pertag-6.2.diff
 )
 sha256sums=(
     'SKIP'
@@ -23,7 +24,8 @@ sha256sums=(
 prepare() {
     patch --directory="$pkgname-$pkgver" < dwm-fullgaps-6.2.diff
     patch --directory="$pkgname-$pkgver" < dwm-dwmblocks-6.2.diff
-    patch --directory="$pkgname-$pkgver" < dwm-pertag-20200914-61bb8b2.diff
+#    patch --directory="$pkgname-$pkgver" < dwm-pertag-20200914-61bb8b2.diff
+    patch --directory="$pkgname-$pkgver" < dwm-pertag-6.2.diff
 
     if [ -e $BUILDDIR/config.h ]; then
         cp "$BUILDDIR/config.h" "$pkgname-$pkgver"

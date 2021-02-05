@@ -51,6 +51,7 @@ static const Rule rules[] = {
 	{ "Vivado",   NULL,       NULL,       1 << 5,       0,           -1 },
 	{ "java",     NULL,       NULL,       1 << 7,       1,           -1 },
 	{ "Vitis IDE",NULL,       NULL,       1 << 5,       0,           -1 },
+	{ "Zathura",  NULL,       NULL,       1 << 3,       0,           -1 },
 };
 
 /* layout(s) */
