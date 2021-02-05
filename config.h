@@ -46,6 +46,11 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "firefox",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ NULL,       NULL,       "nnn",      1 << 1,       0,           -1 },
+	{ "docnav",   NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "Vivado",   NULL,       NULL,       1 << 5,       0,           -1 },
+	{ "java",     NULL,       NULL,       1 << 7,       1,           -1 },
+	{ "Vitis IDE",NULL,       NULL,       1 << 5,       0,           -1 },
 };
 
 /* layout(s) */
@@ -72,6 +77,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+#define TERMINAL "st"
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_normbg, "-nf", col_normfg, "-sb", col_selbg, "-sf", col_selfg, NULL };
 static const char *termcmd[]  = { "st", NULL };
@@ -79,6 +85,7 @@ static const char *printScreen[] = { "/bin/sh", "-c", "sleep 0.1; scrot -z ~/Pic
 static const char *printActive[] = { "/bin/sh", "-c", "sleep 0.1; scrot -z -u ~/Pictures/screenshot/%Y%m%d-%H%M%S.png", NULL };
 static const char *printArea[] = { "/bin/sh", "-c", "sleep 0.2; scrot -z -s ~/Pictures/screenshot/%Y%m%d-%H%M%S.png", NULL };
 static const char *firefox[] = { "firefox", NULL };
+static const char *nnn[] = { TERMINAL, "-e", "nnn", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -91,12 +98,18 @@ static Key keys[] = {
 
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = 0  } },
 
 	{ MODKEY,                       XK_p,      spawn,          {.v = printScreen } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = printActive } },
 	{ MODKEY|ControlMask,           XK_p,      spawn,          {.v = printArea } },
+	{ MODKEY,                 XK_bracketleft,  spawn,          SHCMD("pamixer --allow-boost -d 5 && sigdwmblocks 4") },
+	{ MODKEY,                 XK_bracketright, spawn,          SHCMD("pamixer --allow-boost -i 5 && sigdwmblocks 4") },
+	{ MODKEY|ShiftMask,       XK_bracketleft,  spawn,          SHCMD("pamixer -t && sigdwmblocks 4") },
+	{ MODKEY|ShiftMask,       XK_bracketright, spawn,          SHCMD("sigdwmblocks 4 3") },
+
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = firefox } },
+	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = nnn } },
 
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
